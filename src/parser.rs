@@ -1,3 +1,5 @@
+//! Módulo do parser
+
 #[path = "token.rs"]
 mod token;
 
@@ -8,6 +10,7 @@ use self::token::Token;
 /// Trait base para todos os lexers
 pub trait Lexer {
 
+	/// Lê o código fonte passado e retorna os tokens identificados
 	fn parse(&mut self, source:&str) -> Vec<Token> {
 
 		println!("input:");
@@ -19,7 +22,7 @@ pub trait Lexer {
 
 		//self.set_index(0);
 		let mut index:usize = 0;
-		for character in source.chars() {
+		for character in &source.chars() {
 			// TODO characters.push(character);
 			self.iterate(&mut token_sequence, source, index);
 			//let current_index = self.index();
@@ -34,6 +37,7 @@ pub trait Lexer {
 
 	}
 
+	/// Gera a lista de tokens baseado na identificação dos caracteres
 	fn iterate(&mut self, token_sequence:&mut Vec<Token>, source:&str, index:usize) {
 
 		self.match_tokens(source, index);
@@ -58,6 +62,7 @@ pub trait Lexer {
 
 	}
 
+	/// Identifica quais são os possíveis tokens para a sequência atual de caracteres
 	fn match_tokens(&mut self, source:&str, index:usize) {
 
 		let mut token_pool = self.token_pool();
@@ -100,8 +105,8 @@ pub trait Lexer {
 			}
 
 			if splice {
-				let rangeEnd = i + 1;
-				token_pool.splice(i..rangeEnd, vec![]);
+				let range_end = i + 1;
+				token_pool.splice(i..range_end, vec![]);
 			}
 
 		}
@@ -110,14 +115,18 @@ pub trait Lexer {
 
 	}
 
+	/// Reseta o pool de tokens possíveis para uma nova sequência de caracteres
 	fn reset_tokens(&mut self) {
 		self.token_pool().clear();
 	}
 
+	/// Getter do token pool para a trait
 	fn token_pool(&mut self) -> &mut Vec<Token>;
 
+	/// Getter do index para a trait
 	fn index(&self) -> usize;
 
+	/// Setter do index para a trait
 	fn set_index(&mut self, index:usize);
 
 }
