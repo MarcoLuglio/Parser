@@ -136,6 +136,8 @@ impl Token {
 
 		false
 
+		// TODO PAREI AQUI tem que implementar pra cada token, acho que é aqui que eu parei no impl de um impl
+
 		/*
 		// FIXME ver o caso de &lt;&amp;str que ignora o match &lt; pq tem o &lt;&lt;
 

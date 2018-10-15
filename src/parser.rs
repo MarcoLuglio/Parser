@@ -22,7 +22,7 @@ pub trait Lexer {
 
 		//self.set_index(0);
 		let mut index:usize = 0;
-		for character in &source.chars() {
+		for character in source.chars() {
 			// TODO characters.push(character);
 			self.iterate(&mut token_sequence, source, index);
 			//let current_index = self.index();
